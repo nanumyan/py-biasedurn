@@ -10,15 +10,9 @@
 
 #include "stocc.h"
 #include <Python.h>
-//#include "wnchyppr.cpp"
-//#include "fnchyppr.cpp"
-//#include "mersenne.cpp"
-//#include "randomc.h"
-//#include "mother.cpp"
-//#include "userintf.cpp"
-//#include "stoc1.cpp"
+
  
-double * tdWNCHypergeo(int * px, int m1, int m2, int n, double odds, double prec, int nres)
+PyObject* dWNCHypergeo(int * px, int nres, int m1, int m2, int n, double odds, double prec)
 {
    int     N    = m1 + m2;             // Total number of balls
    double* buffer = 0;                 // Table of probabilities
@@ -27,7 +21,6 @@ double * tdWNCHypergeo(int * px, int m1, int m2, int n, double odds, double prec
    int     x1, x2;                     // Table limits
    int     xmin, xmax;                 // Absolute limits for x
    int     i;                          // Loop counter
-
    // Check validity of parameters
 //   if (odds < 0) error("Invalid value for odds");
  //  if (m1 < 0 || m2 < 0 || n < 0) error("Negative parameter");
@@ -42,6 +35,7 @@ double * tdWNCHypergeo(int * px, int m1, int m2, int n, double odds, double prec
    
    // Make object for calculating probabilities
    CWalleniusNCHypergeometric wnc(n, m1, N, odds, prec);
+
 
    // Check if it is advantageous to use MakeTable:
    if (nres > 1 &&
@@ -80,86 +74,20 @@ double * tdWNCHypergeo(int * px, int m1, int m2, int n, double odds, double prec
          //if (ilog) presult[i] = log(presult[i]);
       }
    }
-   // Return result
-   return presult;
-}
-
-
-static PyObject *dWNCHypergeo(PyObject *self, PyObject *args)
-{
-
-PyObject* seq;
-int *px;
-int seqlen;
-int i;
-int m1,m2,n;
-double odds,prec;
-
-if(!PyArg_ParseTuple(args, "Oiiidd", &seq,&i,&m1,&m2,&n,&odds,&prec))
-        return 0;
-seq = PySequence_Fast(seq, "argument must be iterable");
-if(!seq)
-        return 0;
-
-    seqlen = PySequence_Fast_GET_SIZE(seq);
-    px = (int *)malloc(seqlen*sizeof(double));
-    if(!px) {
-        Py_DECREF(seq);
-        return PyErr_NoMemory(  );
-    }
-
- for(i=0; i < seqlen; i++) {
-        PyObject *fitem;
-        PyObject *item = PySequence_Fast_GET_ITEM(seq, i);
-        if(!item) {
-            Py_DECREF(seq);
-            free(px);
-            return 0;
-        }
-        fitem = PyNumber_Float(item);
-        if(!fitem) {
-            Py_DECREF(seq);
-            free(px);
-            PyErr_SetString(PyExc_TypeError, "all items must be numbers");
-            return 0;
-        }
-        px[i] = PyFloat_AS_DOUBLE(fitem);
-        Py_DECREF(fitem);
-    }    
-
-    /* clean up, compute, and return result */
-    Py_DECREF(seq);
-
-  double *result;
-  result=tdWNCHypergeo(px, m1, m2, n, odds, prec, seqlen);
-
-
-  PyObject* PList = PyList_New(0);
+   
+PyObject* PList = PyList_New(0);
     
-    for (i=0; i < seqlen; i++) 
+    for (i=0; i < nres; i++) 
     {
-        PyList_Append(PList, PyFloat_FromDouble(result[i]));
+        PyList_Append(PList, PyFloat_FromDouble(presult[i]));
       }	
 
-      free(result);
+      free(presult);
     return PList;
+
+
+
 }
 
-
-//static PyMethodDef totalMethods[] = {
-//    {"dWNCHypergeo", dWNCHypergeo, METH_VARARGS, "Sum a sequence of numbers."},
-//    {0} /* sentinel */
-//};
-
-
-
-//static struct PyModuleDef BiasedUrn_module = {
-//   PyModuleDef_HEAD_INIT,
-//   "BiasedUrn",   /* name of module */
-//   NULL, /* module documentation, may be NULL */
-//   -1,       /* size of per-interpreter state of the module,
-//                or -1 if the module keeps state in global variables. */
-//   totalMethods
-//};
 
 
