@@ -1,1 +1,10 @@
-# Python wrapper for Agner Fog's Non-central Hypergeometric Distribution Code
+# Python functions for  Non-central Hypergeometric Distributions
+
+Based on [Agner Fog's Non-uniform random number generators](https://www.agner.org/random).
+
+To build the Python package, you need SWIG.
+Run 
+```
+$ swig -c++ -python biasedurn.i 
+$ python3 setup.py build_ext --inplace
+```
