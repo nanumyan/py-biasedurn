@@ -82,10 +82,10 @@ double * tdWNCHypergeo(int * px, int m1, int m2, int n, double odds, double prec
    }
    // Return result
    return presult;
-}
+};
 
 
-static PyObject *dWNCHypergeo(PyObject *self, PyObject *args)
+PyObject *dWNCHypergeo(PyObject *self, PyObject *args)
 {
 
 PyObject* seq;
