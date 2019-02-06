@@ -8,5 +8,7 @@
 %}
 
 %include "stdint.i"
+%include "std_vector.i"
+%include "typemaps.i" 
 %include "stocc.h"
 %include "urn.h"

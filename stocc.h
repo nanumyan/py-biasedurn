@@ -248,7 +248,7 @@ int NumSD (double accuracy);           // used internally for determining summat
 
 // Maximum number of colors in the multivariate distributions
 #ifndef MAXCOLORS
-   #define MAXCOLORS 100000000         // You may change this value
+   #define MAXCOLORS 120000000         // You may change this value
 #endif
 
 // constant for LnFac function:
