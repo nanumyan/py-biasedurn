@@ -1,6 +1,6 @@
 /*************************** urn.cpp **********************************
 * Author:        Yan  Zhang
-* Date created:  2006
+* Date created:  2019
 * Last modified: 2019-02-06
 * Project:       Py-BiasedUrn
 * Description:
