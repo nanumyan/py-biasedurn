@@ -8,7 +8,7 @@ from distutils.core import setup, Extension
 
 
 biasedurn_module = Extension('_biasedurn',
-                           sources=['biasedurn_wrap.cxx', 'stoc3.cpp', 'stoc2.cpp', 'stoc1.cpp', 'wnchyppr.cpp', 'fnchyppr.cpp', 'mersenne.cpp', 'mother.cpp', 'userintf.cpp'],
+                           sources=['biasedurn_wrap.cxx', 'urn.cpp', 'stoc3.cpp', 'stoc2.cpp', 'stoc1.cpp', 'wnchyppr.cpp', 'fnchyppr.cpp', 'mersenne.cpp', 'mother.cpp', 'userintf.cpp'],
                            )
 
 setup (name = 'biasedurn',

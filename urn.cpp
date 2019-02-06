@@ -18,13 +18,13 @@
 //#include "userintf.cpp"
 //#include "stoc1.cpp"
  
-static double * tdWNCHypergeo(int * px, int m1, int m2, int n, double odds, double prec, int nres)
+double * tdWNCHypergeo(int * px, int m1, int m2, int n, double odds, double prec, int nres)
 {
    int     N    = m1 + m2;             // Total number of balls
    double* buffer = 0;                 // Table of probabilities
    int     BufferLength;               // Length of table
    int     x;                          // Temporary x
-   int   x1, x2;                     // Table limits
+   int     x1, x2;                     // Table limits
    int     xmin, xmax;                 // Absolute limits for x
    int     i;                          // Loop counter
 
