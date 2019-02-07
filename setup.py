@@ -4,27 +4,56 @@
 setup.py file for Python BiasedUrn
 """
 
-from distutils.core import setup, Extension
+try:
+    from setuptools import setup, Extension
+except ImportError:
+    from distutils.core import setup
+# from distutils.core import setup, Extension
 
 
-biasedurn_module = Extension('_biasedurn',
-                           define_macros = [#('PY_BUILD', ), TEMPORARY
+cpp_dir = "biasedurn/cpp_src/"
+cpp_source_files = [
+    'biasedurn/core.i',
+    'urn.cpp', 
+    'stoc3.cpp', 'stoc2.cpp', 'stoc1.cpp', 
+    'wnchyppr.cpp', 'fnchyppr.cpp', 
+    'mersenne.cpp', #'mother.cpp',
+    'userintf.cpp'
+]
+sources = [cpp_dir+file for file in cpp_source_files]
+
+biasedurn_extension = Extension('biasedurn._core',
+                            define_macros = [#('PY_BUILD', ), TEMPORARY
                                 ('MAXCOLORS', 10000000)],
-                           sources=[
-                                'biasedurn.i',
-                                'urn.cpp', 
-                                'stoc3.cpp', 'stoc2.cpp', 'stoc1.cpp', 
-                                'wnchyppr.cpp', 'fnchyppr.cpp', 
-                                'mersenne.cpp', #'mother.cpp',
-                                'userintf.cpp'
-                            ],
-                           swig_opts=['-c++']
-                           )
+                            include_dirs = [cpp_dir],
+                            sources=cpp_source_files,
+                            swig_opts=['-c++']
+                            )
 
-setup (name = 'biasedurn',
+with open("README.md", "r") as fh:
+    long_description = fh.read()
+
+setup (name = 'BiasedUrn',
        version = '0.1',
-       author      = "Vahan Nanumyan",
-       description = """First try to bind biased urn to python""",
-       ext_modules = [biasedurn_module],
-       py_modules = ["biasedurn"],
+       author = "Vahan Nanumyan",
+       author_email='',
+       url = "",
+       classifiers = [
+           "Development Status :: 1 - Planning",
+           "Intended Audience :: Science/Research",
+           "Topic :: Scientific/Engineering :: Mathematics",
+           "Topic :: Scientific/Engineering :: Information Analysis",
+           "Topic :: Scientific/Engineering :: Bio-Informatics",
+           "License :: OSI Approved :: GNU General Public License v3 (GPLv3)"
+           ],
+       keywords='probability distribution RNG non-central multivariate hypergeometric Wallenius Fisher multinomial',
+       description = """BiasedUrn provides discrete distributions in Python""",
+       long_description = long_description,
+       long_description_content_type = "text/markdown",
+       project_urls={ 
+        'Bug Reports': 'https:'
+       },
+    #    packages = ['biasedurn'],
+       ext_modules = [biasedurn_extension],
+       py_modules = ["biasedurn.core"],
        )
