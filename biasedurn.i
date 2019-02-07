@@ -3,6 +3,7 @@
 
 %{
 #define SWIG_FILE_WITH_INIT
+#include "randomc.h"
 #include "stocc.h"
 #include "urn.h"
 %}
@@ -10,11 +11,9 @@
 %include "stdint.i"
 %include "std_vector.i"
 %include "typemaps.i" 
+#include "randomc.h"
 %include "stocc.h"
 
-
-
-%include typemaps.i
 
 
 %typemap(in) (int* px, int nres) {
