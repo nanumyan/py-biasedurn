@@ -1,2 +1,2 @@
-include *.h
-recursive-include *.h *.py
+include *.h *.cpp
+recursive-include  biasedurn *.h *.cpp

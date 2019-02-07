@@ -1,2 +1,2 @@
-__all__ = ["distributions", "core"]
+__all__ = ["distributions", "cpp_src"]
 from . import distributions

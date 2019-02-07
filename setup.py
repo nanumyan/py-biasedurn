@@ -13,28 +13,29 @@ except ImportError:
 
 cpp_dir = "biasedurn/cpp_src/"
 cpp_source_files = [
-    'biasedurn/core.i',
+    'core.i',
     'urn.cpp', 
     'stoc3.cpp', 'stoc2.cpp', 'stoc1.cpp', 
     'wnchyppr.cpp', 'fnchyppr.cpp', 
-    'mersenne.cpp', #'mother.cpp',
+    'mersenne.cpp', 'mother.cpp',
+    #'erfres.cpp', 'erfresmk.cpp',
     'userintf.cpp'
 ]
 sources = [cpp_dir+file for file in cpp_source_files]
 
-biasedurn_extension = Extension('biasedurn._core',
+biasedurn_extension = Extension('biasedurn.cpp_src._core',
                             define_macros = [#('PY_BUILD', ), TEMPORARY
                                 ('MAXCOLORS', 10000000)],
                             include_dirs = [cpp_dir],
-                            sources=cpp_source_files,
-                            swig_opts=['-c++']
+                            sources = sources,
+                            swig_opts = ['-c++']
                             )
 
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
-setup (name = 'BiasedUrn',
-       version = '0.1',
+setup (name = 'biasedurn',
+       version = '0.1.3',
        author = "Vahan Nanumyan",
        author_email='',
        url = "",
@@ -55,5 +56,5 @@ setup (name = 'BiasedUrn',
        },
     #    packages = ['biasedurn'],
        ext_modules = [biasedurn_extension],
-       py_modules = ["biasedurn.core"],
+       py_modules = ["biasedurn.cpp_src.core"],
        )

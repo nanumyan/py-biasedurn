@@ -11,7 +11,7 @@
 %include "stdint.i"
 %include "std_vector.i"
 %include "typemaps.i" 
-#include "randomc.h"
+%include "randomc.h"
 %include "stocc.h"
 
 
