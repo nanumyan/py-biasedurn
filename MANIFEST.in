@@ -1,2 +1,3 @@
 include *.h *.cpp
-recursive-include  biasedurn *.h *.cpp
+recursive-include biasedurn *.h *.cpp
+recursive-exclude biasedurn/cpp_src *_wrap.cpp core.py
